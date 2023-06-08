@@ -40,7 +40,7 @@ export default function App() {
 
   function handleSignup(username) {
     setShowSignup(false);
-    handleLogin(username);
+    //handleLogin(username);
   }
 
   function handleLogin(username) {

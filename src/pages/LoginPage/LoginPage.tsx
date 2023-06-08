@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { styles } from './LoginPage.Style';
-import { updateProfileName } from '../../services/profilAsyncStorage';
+import { getPassword, getProfileName, updateProfileName } from '../../services/profilAsyncStorage';
 
 export default function LoginPage({ handleLogin }) {
   const [username, setUsername] = useState('');
@@ -9,7 +9,10 @@ export default function LoginPage({ handleLogin }) {
 
   const handleLoginPress = async () => {
     // Effectuer des validations de connexion ici
-    if (username === 'admin' && password === 'password') {
+    const storedUsername = await getProfileName(); // Récupérer le username depuis AsyncStorage
+    const storedPassword = await getPassword();
+ 
+    if (username === storedUsername && password === storedPassword) {
       // Mettre à jour le nom dans AsyncStorage
       await updateProfileName(username);
       

@@ -38,3 +38,15 @@ export const signup = async (username, password) => {
   }
 };
 
+
+export const getPassword = async () => {
+  try {
+    const password = await AsyncStorage.getItem('password');
+    return password ? password : ''; // Retourne une chaîne vide si le mot de passe n'est pas stocké
+  } catch (error) {
+    console.log('Error retrieving password from AsyncStorage:', error);
+    return ''; // En cas d'erreur, retourne une chaîne vide
+  }
+};
+
+
