@@ -21,7 +21,7 @@ export default function StackNavigatorProfil({ profileName, handleLogout }) {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name={ROUTE.PROFIL_PAGE.MAIN} options={{ headerShown: false }}>
+      <Stack.Screen name={ROUTE.PROFIL_PAGE.DEB} options={{ headerShown: false }}>
         {(props) => (
           <ProfilPage {...props} profileName={profileName} />
         )}
