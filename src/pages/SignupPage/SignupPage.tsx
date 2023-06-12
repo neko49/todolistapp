@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { styles } from './SignupPage.Style';
-import { signup, setProfilName } from '../../services/profilAsyncStorage';
+import { signup, setProfilName, setePassword } from '../../services/profilAsyncStorage';
 
-export default function SignupPage({ handleSignup }) {
+export default function SignupPage({ handleSignup, handleBack }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,6 +15,8 @@ export default function SignupPage({ handleSignup }) {
 
         await setProfilName(username); // Mettre à jour le nom d'utilisateur dans AsyncStorage
 
+        await setePassword(password); // Mettre à jour le password d'utilisateur dans AsyncStorage
+        
         // Appeler la fonction d'inscription parente avec le nom d'utilisateur
         handleSignup(username);
       } catch (error) {
@@ -24,6 +26,10 @@ export default function SignupPage({ handleSignup }) {
       // Afficher une erreur d'inscription invalide
       alert('Please enter a username and password');
     }
+  };
+
+  const handleBackPress = () => {
+    handleBack();
   };
 
   return (
@@ -48,6 +54,14 @@ export default function SignupPage({ handleSignup }) {
         onPress={handleSignupPress}
       >
         <Text style={styles.buttonText}>Signup</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.buttonStyle}
+        onPress={handleBackPress}
+      >
+        <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
     </View>
   );

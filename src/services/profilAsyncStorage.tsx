@@ -49,4 +49,10 @@ export const getPassword = async () => {
   }
 };
 
-
+export const setePassword = async (password) => {
+  try {
+    await AsyncStorage.setItem('password', password);
+  } catch (error) {
+    console.log('Error saving password to AsyncStorage:', error);
+  }
+};

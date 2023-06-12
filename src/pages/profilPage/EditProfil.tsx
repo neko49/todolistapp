@@ -1,11 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import { updateProfileName } from '../../services/profilAsyncStorage';
+import { getProfileName, updateProfileName } from '../../services/profilAsyncStorage';
 
-export default function EditProfil({ profileName }) {
-  const [newProfileName, setNewProfileName] = useState(profileName); // Utiliser profileName comme valeur initiale
+export default function EditProfil() {
+  const [newProfileName, setNewProfileName] = useState('');
+  const [profileName, setProfileName] = useState('');
+
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchProfileName = async () => {
+      const name = await getProfileName();
+      setProfileName(name);
+    };
+
+    fetchProfileName();
+  }, []);
 
   const handleSaveProfile = async () => {
     if (newProfileName.trim() !== '') {
@@ -22,6 +33,7 @@ export default function EditProfil({ profileName }) {
         value={newProfileName}
         onChangeText={setNewProfileName}
       />
+      <Text>{profileName}</Text>
       <Button title="Save" onPress={handleSaveProfile} />
     </View>
   );

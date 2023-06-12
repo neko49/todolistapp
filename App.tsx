@@ -56,6 +56,10 @@ export default function App() {
     setShowSignup(true);
   }
 
+  function handleBack() {
+    setShowSignup(false);
+  }
+
   if (!fontsLoaded) {
     return null; // Renvoie null pendant le chargement des polices pour éviter un rendu vide
   }
@@ -63,7 +67,7 @@ export default function App() {
   if (showSignup) {
     return (
       <SafeAreaView style={styles.container}>
-        <SignupPage handleSignup={handleSignup} />
+        <SignupPage handleSignup={handleSignup} handleBack={handleBack} />
         <StatusBar style="auto" />
       </SafeAreaView>
     );
