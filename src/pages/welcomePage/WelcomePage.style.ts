@@ -45,4 +45,11 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
   },
+  searchInput: {
+    height: 40,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginBottom: 10,
+  },
 });

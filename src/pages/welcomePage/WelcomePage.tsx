@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ScrollView, Linking, TouchableOpacity, Picker } from 'react-native';
+import { View, Text, Image, ScrollView, Linking, TouchableOpacity, Picker, TextInput } from 'react-native';
 import { styles } from './WelcomePage.style';
 
 const WelcomePage = () => {
   const [news, setNews] = useState([]);
   const [country, setCountry] = useState('fr');
+  const [searchValue, setSearchValue] = useState('');
+
 
   useEffect(() => {
     // Fonction pour récupérer les dernières nouvelles de l'API Google News
@@ -29,7 +31,19 @@ const WelcomePage = () => {
 
   const handleCountryChange = (country) => {
     setCountry(country);
+    setSearchValue('');
+
   };
+
+
+  const filteredNews = news.filter((item) => {
+    if (!item.title) {
+      return false;
+    }
+    const lowercaseTitle = item.title.toLowerCase();
+    return lowercaseTitle.includes(searchValue.toLowerCase());
+  });
+  
 
   return (
     <View style={styles.container}>
@@ -49,8 +63,14 @@ const WelcomePage = () => {
         </Picker>
       </View>
 
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Rechercher une news"
+        value={searchValue}
+        onChangeText={setSearchValue}
+      />
       <ScrollView /*horizontal*/>
-        {news.map((item, index) => (
+        {filteredNews.map((item, index) => (
           <TouchableOpacity
             key={index}
             style={styles.newsItem}
