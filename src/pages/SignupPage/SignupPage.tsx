@@ -18,7 +18,7 @@ export default function SignupPage({ handleSignup, handleBack }) {
         await setePassword(password); // Mettre à jour le password d'utilisateur dans AsyncStorage
         
         // Appeler la fonction d'inscription parente avec le nom d'utilisateur
-        handleSignup(username);
+        handleSignup();
       } catch (error) {
         console.log('Error saving username and password to AsyncStorage:', error);
       }

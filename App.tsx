@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import MainTabNavigator from './src/navigation/tabNavigator';
 import { styles } from './App.styles';
-import { getProfileName, setProfilName } from './src/services/profilAsyncStorage';
+import { getProfileName } from './src/services/profilAsyncStorage';
 import LoginPage from './src/pages/LoginPage/LoginPage';
 import SignupPage from './src/pages/SignupPage/SignupPage';
 
@@ -14,7 +14,7 @@ let customFonts = {
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const [profileName, setProfileName] = useState('');
+  const [username, setUsername] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
@@ -26,26 +26,21 @@ export default function App() {
   async function loadFontsAsync() {
     await Font.loadAsync(customFonts);
     setFontsLoaded(true);
-    // SplashScreen.hide(); // Cache l'écran de chargement d'Expo
   }
 
   async function loadProfileName() {
-    const storedProfileName = await getProfileName();
-    setProfileName(storedProfileName);
+    const storedUsername = await getProfileName();
+    setUsername(storedUsername);
   }
 
-  async function saveProfileName(name) {
-    await setProfilName(name);
-  }
-
-  function handleSignup(username) {
+  function handleSignup() {
     setShowSignup(false);
-    //handleLogin(username);
+    //handleLogin(username); //se loguer directement après avoir signup
   }
 
   function handleLogin(username) {
     setIsLoggedIn(true);
-    setProfileName(username);
+    setUsername(username);
   }
 
   function handleLogout() {
@@ -77,8 +72,6 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       {isLoggedIn ? (
         <MainTabNavigator 
-          profileName={profileName}
-          saveProfileName={saveProfileName}
           handleLogout={handleLogout}  
         />
       ) : (

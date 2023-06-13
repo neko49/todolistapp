@@ -15,11 +15,27 @@ export default function ProfilDetail({ handleLogout }) {
     };
 
     fetchProfileName();
-  }, []);
+  }, [profileName]);
+
+  useEffect(() => {
+    const checkAndUpdateProfileName = async () => {
+      const username = await getProfileName();
+      if (profileName !== username) {
+        setProfileName(username);
+      }
+    };
+
+    checkAndUpdateProfileName();
+  }, [profileName]);
+  
 
   useEffect(() => {
     navigate.setOptions({ title: profileName });
   }, [navigate, profileName]);
+
+
+
+
 
   return (
     <View>

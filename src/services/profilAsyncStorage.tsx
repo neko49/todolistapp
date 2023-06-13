@@ -14,6 +14,7 @@ export const getProfileName = async () => {
 export const setProfilName = async (username) => {
   try {
     await AsyncStorage.setItem('username', username);
+    return username;
   } catch (error) {
     console.log('Error saving profile name to AsyncStorage:', error);
   }
